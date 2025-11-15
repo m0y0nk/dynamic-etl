@@ -1,0 +1,21 @@
+--- 
+title: "Widget A"
+price: 9.99
+tags:
+  - gadget
+  - home
+---
+
+{"id":"prod-100","title":"Widget A","price_usd":"9.99"}
+
+<table>
+<tr><th>author</th><th>rating</th></tr>
+<tr><td>Alice</td><td>5</td></tr>
+</table>
+
+author,rating
+Bob,4
+Charlie,3
+
+key: value
+foo: bar

@@ -2,6 +2,8 @@ import express from "express";
 import multer from "multer";
 import Source from "../models/Source.js";
 import Schema from "../models/Schema.js";
+import Record from "../models/Record.js";
+import { parseFile } from "../etl/parser.js";
 
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
@@ -16,9 +18,22 @@ router.post("/", upload.single("file"), async (req, res) => {
     { upsert: true }
   );
 
-  // Create minimal schema stub
-  const schemaId = `schema_${Date.now()}`;
+  const buffer = Buffer.from(req.file.buffer || await fs.promises.readFile(req.file.path));
+  const mimetype = req.file.mimetype;
+  const filename = req.file.originalname;
 
+  // 🔥 Parse real content
+  const { summary, detail } = await parseFile(buffer, mimetype, filename);
+
+  // store parsed fragments
+  await Record.create({
+    sourceId,
+    rawFile: filename,
+    parsed: detail
+  });
+
+  // Keep schema stub (schema generation comes in Stage 3)
+  const schemaId = `schema_${Date.now()}`;
   await Schema.create({
     sourceId,
     schemaId,
@@ -26,10 +41,7 @@ router.post("/", upload.single("file"), async (req, res) => {
     fields: [],
     version: 1,
     compatibleDbs: ["mongodb"],
-    summary: {
-      stage: "stub",
-      fragments: 0
-    }
+    summary
   });
 
   res.json({
@@ -37,7 +49,7 @@ router.post("/", upload.single("file"), async (req, res) => {
     source_id: sourceId,
     file_id: req.file.filename,
     schema_id: schemaId,
-    parsed_fragments_summary: {}
+    parsed_fragments_summary: summary
   });
 });
 
