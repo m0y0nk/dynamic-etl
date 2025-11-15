@@ -1,6 +1,7 @@
-import cheerio from "cheerio";
-import yaml from "yaml";
-import pdfParse from "pdf-parse";
+import * as cheerio from "cheerio";
+import * as yaml from "yaml";
+import * as pdfParse from "pdf-parse";
+
 
 // Utility regex
 const KV_REGEX = /^\s*([\w\-\s]+)[:=]\s*(.+)$/;

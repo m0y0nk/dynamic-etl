@@ -26,6 +26,8 @@
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "form-data": "^4.0.4",
+    "jsondiffpatch": "^0.7.3",
+    "lodash": "^4.17.21",
     "mongoose": "^8.19.4",
     "multer": "^2.0.2",
     "pdf-parse": "^2.4.5",

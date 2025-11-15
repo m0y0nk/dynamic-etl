@@ -1,0 +1,3 @@
+{"id":"prod-1001","title":"Widget A","pricing":{"price_usd":"9.99","inventory":120},"tags":["gadget","home"]}
+author: Example Corp
+price: $9.99
