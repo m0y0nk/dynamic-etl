@@ -4,7 +4,7 @@ async function configDB()
 { 
     try 
     { 
-        await mongoose.connect("mongodb+srv://aryan24bcs10283:gFvaluXfAKaIBGCT@cluster0.hudjuh5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0" ) 
+        await mongoose.connect(process.env.DBURL ) 
         console.log("MongoDB Connected" ) 
     } catch (error ) 
     { 
