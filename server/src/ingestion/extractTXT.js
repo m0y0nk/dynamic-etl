@@ -1,5 +1,5 @@
 // * Extract raw UTF-8 text from .txt file.
-module.exports = function extractTXT(buffer) {
+export default function extractTXT(buffer) {
   try {
     return buffer.toString("utf8");
   } catch (err) {
